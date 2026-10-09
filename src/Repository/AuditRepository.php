@@ -13,18 +13,26 @@ final readonly class AuditRepository
     ) {
     }
 
-    /**
-     * @return list<array<string, mixed>>
-     */
-    public function findByObjectId(string $auditTableName, string $objectId): array
+    public function findByEntityId(string $auditTableName, string $entityId): array
     {
         return $this->connection->createQueryBuilder()
             ->select('*')
             ->from($this->connection->quoteSingleIdentifier($auditTableName))
             ->where('object_id = :objectId')
             ->orderBy('created_at', 'DESC')
-            ->setParameter('objectId', $objectId)
+            ->setParameter('objectId', $entityId)
             ->executeQuery()
             ->fetchAllAssociative();
+    }
+
+    public function findById(string $auditTableName, int $recordId): array
+    {
+        return $this->connection->createQueryBuilder()
+            ->select('*')
+            ->from($this->connection->quoteSingleIdentifier($auditTableName))
+            ->where('id = :recordId')
+            ->setParameter('recordId', $recordId)
+            ->executeQuery()
+            ->fetchAssociative();
     }
 }

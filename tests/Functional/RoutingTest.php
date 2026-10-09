@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Acrnogor\AuditApiBundle\Tests\Functional;
 
-use Acrnogor\AuditApiBundle\Controller\GetAudits;
+use Acrnogor\AuditApiBundle\Controller\ListAudits;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -26,6 +26,6 @@ final class RoutingTest extends KernelTestCase
         self::assertNotNull($route);
         self::assertSame('/audit/audits/{shortName}/{id}', $route->getPath());
         self::assertSame(['GET'], $route->getMethods());
-        self::assertSame(GetAudits::class, $route->getDefault('_controller'));
+        self::assertSame(ListAudits::class, $route->getDefault('_controller'));
     }
 }

@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use Acrnogor\AuditApiBundle\Controller\GetAudits;
+use Acrnogor\AuditApiBundle\Controller\GetAudit;
+use Acrnogor\AuditApiBundle\Controller\ListAudits;
 use Acrnogor\AuditApiBundle\Repository\AuditRepository;
 use Acrnogor\AuditApiBundle\Resolver\EntityClassResolver;
 
@@ -15,7 +16,11 @@ return static function (ContainerConfigurator $container): void {
             ->autoconfigure()
             ->private();
 
-    $services->set(GetAudits::class)
+    $services->set(ListAudits::class)
+        ->public()
+        ->tag('controller.service_arguments');
+
+    $services->set(GetAudit::class)
         ->public()
         ->tag('controller.service_arguments');
 

@@ -11,10 +11,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(
-    path: '/{shortName}/{id}',
+    path: '/{shortName}/{entityId}',
     methods: ['GET']
 )]
-final readonly class GetAudits
+final readonly class ListAudits
 {
     public function __construct(
         private EntityClassResolver $resolver,
@@ -25,7 +25,7 @@ final readonly class GetAudits
     }
 
 
-    public function __invoke(string $shortName, string $id): JsonResponse
+    public function __invoke(string $shortName, string $entityId): JsonResponse
     {
         $fqcn = $this->resolver->resolve($shortName);
 
@@ -33,7 +33,7 @@ final readonly class GetAudits
         $entityTableName = $this->entityManager->getClassMetadata($fqcn)->getTableName();
         $auditTableName = sprintf('audit_%s', $entityTableName);
 
-        $results = $this->auditRepository->findByObjectId($auditTableName, $id);
+        $results = $this->auditRepository->findByEntityId($auditTableName, $entityId);
 
         return new JsonResponse($results);
     }
