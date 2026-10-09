@@ -6,3 +6,4 @@
 /var/
 .idea/
 .DS_Store
+/tests/Functional/app/config/

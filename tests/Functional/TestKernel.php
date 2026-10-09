@@ -20,6 +20,11 @@ final class TestKernel extends Kernel
         yield new AcrnogorAuditApiBundle();
     }
 
+    public function getProjectDir(): string
+    {
+        return __DIR__.'/app';
+    }
+
     public function getCacheDir(): string
     {
         return sys_get_temp_dir().'/acrnogor_audit_api_bundle/cache/'.$this->environment;
