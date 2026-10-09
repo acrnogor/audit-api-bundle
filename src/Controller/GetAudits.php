@@ -11,8 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(
-    path: '/audits/{shortName}/{id}',
-    name: 'acrnogor_audit_api_get_audits',
+    path: '/{shortName}/{id}',
     methods: ['GET']
 )]
 final readonly class GetAudits

@@ -1,4 +1,4 @@
 acrnogor_audit_api:
     resource: '@AcrnogorAuditApiBundle/src/Controller/'
     type: attribute
-    prefix: /audit
+    prefix: /audits
