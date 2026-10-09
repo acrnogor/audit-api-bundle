@@ -1,6 +1,6 @@
 {
     "name": "acrnogor/audit-api-bundle",
-    "description": "Symfony bundle providing an audit API.",
+    "description": "Symfony bundle providing an API interface for damienharper/auditor-bundle audits.",
     "type": "symfony-bundle",
     "license": "MIT",
     "keywords": ["symfony", "bundle", "audit", "api"],
