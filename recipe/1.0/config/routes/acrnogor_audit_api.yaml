@@ -1,3 +1,4 @@
 acrnogor_audit_api:
-    resource: '@AcrnogorAuditApiBundle/config/routes.php'
+    resource: '@AcrnogorAuditApiBundle/src/Controller/'
+    type: attribute
     prefix: /audit

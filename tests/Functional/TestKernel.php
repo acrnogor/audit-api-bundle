@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Acrnogor\AuditApiBundle\Tests\Functional;
 
 use Acrnogor\AuditApiBundle\AcrnogorAuditApiBundle;
+use Doctrine\DBAL\Connection;
+use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
@@ -47,11 +49,16 @@ final class TestKernel extends Kernel
             'php_errors' => ['log' => true],
         ]);
 
-        $container->services()->set('logger', NullLogger::class);
+        $services = $container->services();
+        $services->set('logger', NullLogger::class);
+
+        // Doctrine is provided by the host app; stub it so the container compiles.
+        $services->set(EntityManagerInterface::class)->synthetic();
+        $services->set(Connection::class)->synthetic();
     }
 
     protected function configureRoutes(RoutingConfigurator $routes): void
     {
-        $routes->import(\dirname(__DIR__, 2).'/config/routes.php');
+        $routes->import(\dirname(__DIR__, 2).'/src/Controller/', 'attribute')->prefix('/audit');
     }
 }

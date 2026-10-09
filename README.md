@@ -39,13 +39,16 @@ acrnogor_audit_api:
 ```yaml
 # config/routes/acrnogor_audit_api.yaml
 acrnogor_audit_api:
-    resource: '@AcrnogorAuditApiBundle/config/routes.php'
+    resource: '@AcrnogorAuditApiBundle/src/Controller/'
+    type: attribute
     prefix: /audit
 ```
 
-| Method | Path     | Response                     |
-|--------|----------|------------------------------|
-| GET    | `/hello` | `{"message": "Hello World"}` |
+Flex adds this file automatically; without Flex, create it manually.
+
+| Method | Path                                | Response                                   |
+|--------|-------------------------------------|--------------------------------------------|
+| GET    | `/audit/audits/{shortName}/{id}`    | Audit entries for the entity, newest first |
 
 ## Flex recipe
 
