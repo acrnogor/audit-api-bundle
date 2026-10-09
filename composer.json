@@ -17,7 +17,7 @@
         "symfony/framework-bundle": "^6.4 || ^7.0",
         "symfony/http-foundation": "^6.4 || ^7.0",
         "symfony/http-kernel": "^6.4 || ^7.0",
-        "symfony/routing": "^6.4 || ^7.0",,,
+        "symfony/routing": "^6.4 || ^7.0",
         "doctrine/dbal": "^3.6 || ^4.0",
         "damienharper/auditor-bundle": "^6.3 || ^7.0"
     },
