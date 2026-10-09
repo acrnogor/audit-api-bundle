@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 use Acrnogor\AuditApiBundle\Controller\GetAudits;
+use Acrnogor\AuditApiBundle\Repository\AuditRepository;
+use Acrnogor\AuditApiBundle\Resolver\EntityClassResolver;
 
 return static function (ContainerConfigurator $container): void {
     $services = $container->services()
@@ -16,4 +18,9 @@ return static function (ContainerConfigurator $container): void {
     $services->set(GetAudits::class)
         ->public()
         ->tag('controller.service_arguments');
+
+    $services->set(EntityClassResolver::class)
+        ->arg('$entityClassmap', param('acrnogor_audit_api.entity_classmap'));
+
+    $services->set(AuditRepository::class);
 };
