@@ -1,0 +1,7 @@
+acrnogor_audit_api:
+    enabled: true
+    entity_classmap:
+        # Map entity fqcn to its shortname (matched via router in url to make urls friendly), i.e:
+        # App\Entity\User: user
+
+

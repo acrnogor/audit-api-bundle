@@ -1,0 +1,3 @@
+acrnogor_audit_api:
+    resource: '@AcrnogorAuditApiBundle/config/routes.php'
+    prefix: /audit

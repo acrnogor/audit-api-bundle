@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use Acrnogor\AuditApiBundle\Controller\HelloController;
+use Acrnogor\AuditApiBundle\Controller\GetAudits;
 
 return static function (ContainerConfigurator $container): void {
     $services = $container->services()
@@ -13,7 +13,7 @@ return static function (ContainerConfigurator $container): void {
             ->autoconfigure()
             ->private();
 
-    $services->set(HelloController::class)
+    $services->set(GetAudits::class)
         ->public()
         ->tag('controller.service_arguments');
 };

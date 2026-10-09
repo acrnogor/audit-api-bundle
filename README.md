@@ -47,6 +47,13 @@ acrnogor_audit_api:
 |--------|----------|------------------------------|
 | GET    | `/hello` | `{"message": "Hello World"}` |
 
+## Flex recipe
+
+The Flex recipe lives in [`recipe/`](recipe/) and is mirrored to
+[symfony/recipes-contrib](https://github.com/symfony/recipes-contrib) under
+`acrnogor/audit-api-bundle/<version>/`. Flex only reads recipes from recipe
+repositories, so any change here has to be submitted there to take effect.
+
 ## Testing
 
 ```bash
