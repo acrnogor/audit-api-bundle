@@ -17,7 +17,7 @@ final readonly class AuditRepository
     {
         return $this->connection->createQueryBuilder()
             ->select('*')
-            ->from($this->connection->quoteSingleIdentifier($auditTableName))
+            ->from($this->connection->getDatabasePlatform()->quoteSingleIdentifier($auditTableName))
             ->where('object_id = :objectId')
             ->orderBy('created_at', 'DESC')
             ->setParameter('objectId', $entityId)
@@ -27,12 +27,14 @@ final readonly class AuditRepository
 
     public function findById(string $auditTableName, int $recordId): array
     {
-        return $this->connection->createQueryBuilder()
+        $result = $this->connection->createQueryBuilder()
             ->select('*')
-            ->from($this->connection->quoteSingleIdentifier($auditTableName))
+            ->from($this->connection->getDatabasePlatform()->quoteSingleIdentifier($auditTableName))
             ->where('id = :recordId')
             ->setParameter('recordId', $recordId)
             ->executeQuery()
             ->fetchAssociative();
+
+        return $result ?: [];
     }
 }
