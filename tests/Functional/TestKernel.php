@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Acrnogor\AuditApiBundle\Tests\Functional;
 
 use Acrnogor\AuditApiBundle\AcrnogorAuditApiBundle;
+use Psr\Log\NullLogger;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Kernel;
+use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
 final class TestKernel extends Kernel
 {
@@ -44,5 +46,12 @@ final class TestKernel extends Kernel
             'handle_all_throwables' => true,
             'php_errors' => ['log' => true],
         ]);
+
+        $container->services()->set('logger', NullLogger::class);
+    }
+
+    protected function configureRoutes(RoutingConfigurator $routes): void
+    {
+        $routes->import(\dirname(__DIR__, 2).'/config/routes.php');
     }
 }

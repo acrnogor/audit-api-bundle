@@ -30,6 +30,21 @@ acrnogor_audit_api:
     enabled: true
 ```
 
+## Routes
+
+Import the bundle routes in your application:
+
+```yaml
+# config/routes/acrnogor_audit_api.yaml
+acrnogor_audit_api:
+    resource: '@AcrnogorAuditApiBundle/config/routes.php'
+    prefix: /audit
+```
+
+| Method | Path     | Response                     |
+|--------|----------|------------------------------|
+| GET    | `/hello` | `{"message": "Hello World"}` |
+
 ## Testing
 
 ```bash
