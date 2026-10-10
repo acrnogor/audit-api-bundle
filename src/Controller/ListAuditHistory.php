@@ -6,7 +6,6 @@ namespace Acrnogor\AuditApiBundle\Controller;
 
 use Acrnogor\AuditApiBundle\Resolver\EntityClassResolver;
 use DH\Auditor\Provider\Doctrine\Persistence\Reader\Reader;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 

@@ -19,7 +19,7 @@ return static function (ContainerConfigurator $container): void {
     $services->set(ListAuditHistory::class)
         ->public()
         ->tag('controller.service_arguments')
-        ->arg('$defaultLimit', param('acrnogor_audit_api.pagination.limit'))
+        ->arg('$limit', param('acrnogor_audit_api.pagination.limit'))
         ->arg('$maxLimit', param('acrnogor_audit_api.pagination.max_limit'));
 
     $services->set(GetAudit::class)
