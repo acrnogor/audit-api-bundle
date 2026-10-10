@@ -30,11 +30,10 @@ final readonly class GetAudit
     public function __invoke(string $shortName, string $entityId, int $recordId): JsonResponse
     {
         $fqcn = $this->resolver->resolve($shortName);
-        $criteria = [
-            'object_id' => $entityId,
-            'id' => $recordId,
-        ];
-        $query = $this->reader->createQuery($fqcn, $criteria);
+        $query = $this->reader
+            ->createQuery($fqcn, ['object_id' => $entityId])
+            ->addfilter(new SimpleFilter(Query::ID, $entityId));
+        
         $result = $query->execute();
 
         if (empty($result) || !isset($result[0])) {
