@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
     path: '/{shortName}/{entityId}/history',
     methods: ['GET']
 )]
-final readonly class ListAudits
+final readonly class ListAuditHistory
 {
     public function __construct(
         private EntityClassResolver $resolver,
