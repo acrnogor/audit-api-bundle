@@ -30,16 +30,18 @@ final readonly class GetAudit
     public function __invoke(string $shortName, string $entityId, int $recordId): JsonResponse
     {
         $fqcn = $this->resolver->resolve($shortName);
+        $criteria = [
+            'object_id' => $entityId,
+            'id' => $recordId,
+        ];
+        $query = $this->reader->createQuery($fqcn, $criteria);
+        $result = $query->execute();
 
-        $entry = $this->reader->createQuery($fqcn, ['object_id' => $entityId])
-            ->addFilter(new SimpleFilter(Query::ID, $recordId))
-            ->resetOrderBy()
-            ->execute()[0] ?? null;
-
-        if (null === $entry) {
-            throw new NotFoundHttpException(sprintf('Audit record "%d" not found.', $recordId));
+        if (empty($result) || !isset($result[0])) {
+            $message = sprintf('Audit record "%d" for "%s" not found.', $recordId, $fqcn);
+            throw new NotFoundHttpException($message);
         }
 
-        return new JsonResponse($this->normalizer->normalize($entry));
+        return new JsonResponse($this->normalizer->normalize($result[0]));
     }
 }
