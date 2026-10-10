@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(
-    path: '/{shortName}/{entityId}',
+    path: '/{shortName}/{entityId}/history',
     methods: ['GET']
 )]
 final readonly class ListAudits
