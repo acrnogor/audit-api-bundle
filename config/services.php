@@ -6,7 +6,6 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 use Acrnogor\AuditApiBundle\Controller\GetAudit;
 use Acrnogor\AuditApiBundle\Controller\ListAuditHistory;
-use Acrnogor\AuditApiBundle\Repository\AuditRepository;
 use Acrnogor\AuditApiBundle\Resolver\EntityClassResolver;
 use Acrnogor\AuditApiBundle\Serializer\EntryNameConverter;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
@@ -37,10 +36,9 @@ return static function (ContainerConfigurator $container): void {
 
     $services->set(GetAudit::class)
         ->public()
-        ->tag('controller.service_arguments');
+        ->tag('controller.service_arguments')
+        ->arg('$normalizer', service('acrnogor_audit_api.serializer'));
 
     $services->set(EntityClassResolver::class)
         ->arg('$entityClassmap', param('acrnogor_audit_api.entity_classmap'));
-
-    $services->set(AuditRepository::class);
 };

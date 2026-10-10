@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Acrnogor\AuditApiBundle\Controller;
 
-use Acrnogor\AuditApiBundle\Repository\AuditRepository;
 use Acrnogor\AuditApiBundle\Resolver\EntityClassResolver;
-use Doctrine\ORM\EntityManagerInterface;
+use DH\Auditor\Provider\Doctrine\Persistence\Reader\Filter\SimpleFilter;
+use DH\Auditor\Provider\Doctrine\Persistence\Reader\Query;
+use DH\Auditor\Provider\Doctrine\Persistence\Reader\Reader;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 #[Route(
     path: '/{shortName}/{entityId}/{recordId}',
@@ -19,22 +22,24 @@ final readonly class GetAudit
 {
     public function __construct(
         private EntityClassResolver $resolver,
-        private EntityManagerInterface $entityManager,
-        private AuditRepository $auditRepository,
+        private Reader $reader,
+        private NormalizerInterface $normalizer,
     ) {
-        // constructor here
     }
 
     public function __invoke(string $shortName, string $entityId, int $recordId): JsonResponse
     {
         $fqcn = $this->resolver->resolve($shortName);
 
-        // get table name from entity class
-        $entityTableName = $this->entityManager->getClassMetadata($fqcn)->getTableName();
-        $auditTableName = sprintf('audit_%s', $entityTableName);
+        $entry = $this->reader->createQuery($fqcn, ['object_id' => $entityId])
+            ->addFilter(new SimpleFilter(Query::ID, $recordId))
+            ->resetOrderBy()
+            ->execute()[0] ?? null;
 
-        $results = $this->auditRepository->findById($auditTableName, $recordId);
+        if (null === $entry) {
+            throw new NotFoundHttpException(sprintf('Audit record "%d" not found.', $recordId));
+        }
 
-        return new JsonResponse($results);
+        return new JsonResponse($this->normalizer->normalize($entry));
     }
 }
