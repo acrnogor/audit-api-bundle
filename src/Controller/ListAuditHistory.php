@@ -38,7 +38,7 @@ final readonly class ListAuditHistory
         $criteria = [
             'object_id' => $entityId,
             'page' => $page,
-            'size' => $size,
+            'page_size' => $size,
         ];
         $query = $this->reader->createQuery($fqcn, $criteria);
 
