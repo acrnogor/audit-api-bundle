@@ -1,7 +1,11 @@
 acrnogor_audit_api:
     enabled: true
+    pagination:
+        limit: 10
+        max_limit: 100
     entity_classmap:
         # Map entity fqcn to its shortname (matched via router in url to make urls friendly), i.e:
-        # App\Entity\User: user
+        App\Entity\User: user
+        App\Entity\FeatureFlag: feature-flag
 
 

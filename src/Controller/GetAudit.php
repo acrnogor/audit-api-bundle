@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(
     path: '/{shortName}/{entityId}/{recordId}',
+    requirements: ['recordId' => '\d+'],
     methods: ['GET']
 )]
 final readonly class GetAudit

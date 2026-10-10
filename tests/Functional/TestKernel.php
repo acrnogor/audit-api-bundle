@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Acrnogor\AuditApiBundle\Tests\Functional;
 
 use Acrnogor\AuditApiBundle\AcrnogorAuditApiBundle;
+use DH\Auditor\Provider\Doctrine\Persistence\Reader\Reader;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\NullLogger;
@@ -55,6 +56,9 @@ final class TestKernel extends Kernel
         // Doctrine is provided by the host app; stub it so the container compiles.
         $services->set(EntityManagerInterface::class)->synthetic();
         $services->set(Connection::class)->synthetic();
+
+        // Provided by DHAuditorBundle in the host app.
+        $services->set(Reader::class)->synthetic();
     }
 
     protected function configureRoutes(RoutingConfigurator $routes): void
