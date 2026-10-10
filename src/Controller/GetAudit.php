@@ -32,8 +32,8 @@ final readonly class GetAudit
         $fqcn = $this->resolver->resolve($shortName);
         $query = $this->reader
             ->createQuery($fqcn, ['object_id' => $entityId])
-            ->addfilter(new SimpleFilter(Query::ID, $entityId));
-        
+            ->addFilter(new SimpleFilter(Query::ID, $recordId));
+
         $result = $query->execute();
 
         if (empty($result) || !isset($result[0])) {
