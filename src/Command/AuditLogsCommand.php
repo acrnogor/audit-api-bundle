@@ -78,7 +78,7 @@ final class AuditLogsCommand extends Command
             $result = $this->normalizer->normalize($entry);
 
             // encode this to json and pretty print
-            $changes = json_encode($result['diffs']);
+            $changes = json_encode($result['diffs'], JSON_PRETTY_PRINT);
 
             $tableData[] = [
                 'operation'     => $result['type'],
