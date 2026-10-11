@@ -73,11 +73,11 @@ final class AuditLogsCommand extends Command
             $result = $this->normalizer->normalize($entry);
 
             // encode this to json and pretty print
-            $changes = json_encode($result, JSON_THROW_ON_ERROR|JSON_PRETTY_PRINT);
+            $changes = json_encode($entry['diffs']);
 
             $tableData[] = [
                 'operation'     => $result['type'],
-                'modified_by'   => $result['blame_user'],
+                'modified_by'   => substr($result['blame_user'], 0, 32) . '...',
                 'modified_at'   => $result['created_at'],
                 'changes'       => $changes,
             ];
