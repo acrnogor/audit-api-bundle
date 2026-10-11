@@ -68,14 +68,18 @@ final class AuditLogsCommand extends Command
         }
 
         $tableData = [];
-        
+
         foreach ($entries as $entry) {
             $result = $this->normalizer->normalize($entry);
+
+            // encode this to json and pretty print
+            $changes = json_encode($result, JSON_THROW_ON_ERROR|JSON_PRETTY_PRINT);
+
             $tableData[] = [
                 'operation'     => $result['type'],
                 'modified_by'   => $result['blame_user'],
                 'modified_at'   => $result['created_at'],
-                'changes'       => $result['diffs'],
+                'changes'       => $changes,
             ];
         }
 
