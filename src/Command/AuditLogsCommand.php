@@ -7,7 +7,6 @@ namespace Acrnogor\AuditApiBundle\Command;
 use DH\Auditor\Exception\AccessDeniedException;
 use DH\Auditor\Exception\InvalidArgumentException;
 use DH\Auditor\Model\Entry;
-use DH\Auditor\Model\TransactionType;
 use DH\Auditor\Provider\Doctrine\Persistence\Reader\Query;
 use DH\Auditor\Provider\Doctrine\Persistence\Reader\Reader;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -24,11 +23,12 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 final class AuditLogsCommand extends Command
 {
     private const array OPERATION_COLORS = [
-        TransactionType::INSERT => 'green',
-        TransactionType::UPDATE => 'yellow',
-        TransactionType::REMOVE => 'red',
-        TransactionType::ASSOCIATE => 'cyan',
-        TransactionType::DISSOCIATE => 'magenta',
+        // Plain strings: DH\Auditor\Model\TransactionType only exists in auditor 4.x
+        'insert' => 'green',
+        'update' => 'yellow',
+        'remove' => 'red',
+        'associate' => 'cyan',
+        'dissociate' => 'magenta',
     ];
 
     public function __construct(
