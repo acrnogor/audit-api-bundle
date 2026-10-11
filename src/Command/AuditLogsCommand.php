@@ -82,7 +82,7 @@ final class AuditLogsCommand extends Command
 
             $tableData[] = [
                 'operation'     => $result['type'],
-                'modified_by'   => substr($result['blame_user'], 0, 32) . '...',
+                'modified_by'   => $result['blame_user'] ? substr($result['blame_user'], 0, 32) . '...' : 'N/A',
                 'modified_at'   => $result['created_at'],
                 'changes'       => $changes,
             ];
