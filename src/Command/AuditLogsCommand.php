@@ -43,7 +43,8 @@ final class AuditLogsCommand extends Command
     {
         $this
             ->addArgument('entity', InputArgument::REQUIRED, 'Entity FQCN, e.g. "App\\Entity\\User"')
-            ->addArgument('object_id', InputArgument::REQUIRED, 'Identifier of the entity record');
+            ->addArgument('object_id', InputArgument::REQUIRED, 'Identifier of the entity record')
+            ->addOption('limit', 'l', InputArgument::OPTIONAL, 'Limit the number of audit logs displayed', 24);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -52,13 +53,17 @@ final class AuditLogsCommand extends Command
 
         $fqcn = (string) $input->getArgument('entity');
         $objectId = (int) $input->getArgument('object_id');
+        $limit = (int) $input->getOption('limit');
 
-        $query = $this->reader->createQuery($fqcn, ['object_id' => $objectId, 'page_size' => null]);
+        $query = $this->reader->createQuery($fqcn, [
+            'object_id' => $objectId, 
+            'page_size' => $limit
+        ]);
 
         $entries = $query
             ->resetOrderBy()
-            ->addOrderBy(Query::CREATED_AT, 'ASC')
-            ->addOrderBy(Query::ID, 'ASC')
+            ->addOrderBy(Query::CREATED_AT)
+            ->addOrderBy(Query::ID)
             ->execute();
 
         if ([] === $entries) {
