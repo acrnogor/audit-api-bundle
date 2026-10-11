@@ -56,7 +56,7 @@ final class AuditLogsCommand extends Command
         $limit = (int) $input->getOption('limit');
 
         $query = $this->reader->createQuery($fqcn, [
-            'object_id' => $objectId, 
+            'object_id' => $objectId,
             'page_size' => $limit
         ]);
 
@@ -78,7 +78,7 @@ final class AuditLogsCommand extends Command
             $result = $this->normalizer->normalize($entry);
 
             // encode this to json and pretty print
-            $changes = json_encode($entry['diffs']);
+            $changes = json_encode($result['diffs']);
 
             $tableData[] = [
                 'operation'     => $result['type'],
