@@ -1,10 +1,10 @@
 # AcrnogorAuditApiBundle
 
-Symfony bundle providing an audit API.
+Symfony bundle providing an API interface for damienharper's audit bundle.
 
 ## Requirements
 
-- PHP 8.2+
+- PHP 8.4+
 - Symfony 6.4 or 7.x
 
 ## Installation
