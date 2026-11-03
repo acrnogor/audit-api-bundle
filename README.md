@@ -32,6 +32,12 @@ return [
 # config/packages/acrnogor_audit_api.yaml
 acrnogor_audit_api:
     enabled: true
+    pagination:
+        limit: 10
+        max_limit: 100
+    entity_classmap:
+    # Map entity fqcn to its shortname (matched via router in url to make urls friendly), i.e:
+    # App\Entity\User: user
 ```
 
 ## Routes
