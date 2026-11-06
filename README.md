@@ -52,9 +52,22 @@ acrnogor_audit_api:
 
 Flex adds this file automatically; without Flex, create it manually.
 
-| Method | Path                                | Response                                   |
-|--------|-------------------------------------|--------------------------------------------|
-| GET    | `/audit/audits/{shortName}/{id}`    | Audit entries for the entity, newest first |
+| Method | Path                                         | Response                                   |
+|--------|----------------------------------------------|--------------------------------------------|
+| GET    | `/audit/{shortName}/{entityId}/history`      | Audit entries for the entity, newest first |
+| GET    | `/audit/{shortName}/{entityId}/{recordId}`   | Single audit entry for the entity record   |
+
+Note: `{shortName}` is the short name of the entity, as defined in the configuration. `{entityId}` is the primary key of the entity. {`recordId}` is the primary key of the audit record.
+
+## Security
+Make sure you add the audit urls to your security firewall configuration, i.e.:
+
+```yaml
+# config/packages/security.yaml
+access_control:
+    - { path: ^/audit, roles: ROLE_SUPER_ADMIN }
+```
+
 
 ## Flex recipe
 
