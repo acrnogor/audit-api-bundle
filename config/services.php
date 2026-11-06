@@ -27,8 +27,13 @@ return static function (ContainerConfigurator $container): void {
         ->arg('$maxLimit', param('acrnogor_audit_api.pagination.max_limit'))
         ->arg('$normalizer', service('acrnogor_audit_api.serializer'));
 
+
+
+
+
     // Bundle-private serializer, so we don't depend on (or get affected by) the host app's serializer config.
     $services->set('acrnogor_audit_api.serializer', Serializer::class)
+        ->autoconfigure(false)
         ->args([[
             inline_service(DateTimeNormalizer::class),
             inline_service(ObjectNormalizer::class)
